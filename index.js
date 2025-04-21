@@ -1,8 +1,19 @@
 document.querySelectorAll(".drum").forEach(btn=> btn.addEventListener("click", function(){
     let audio;
  const buttonInner = this.innerHTML
-    switch (buttonInner){
-        case "w":
+    makeSound(buttonInner);
+    buttonAnimation(buttonInner);
+
+}))
+
+document.addEventListener("keydown", function(e){
+makeSound(e.key);
+buttonAnimation(e.key);
+})
+function makeSound(key){
+    let audio;
+    switch (key){
+        case "w" :
         audio = new Audio("./sounds/crash.mp3");
         audio.play();
         break;
@@ -33,8 +44,10 @@ document.querySelectorAll(".drum").forEach(btn=> btn.addEventListener("click", f
         break;
         default:
         console.log("invalid option");
- }
-}))
-
-// let audio = new Audio("./sounds/tom-1.mp3");
-// audio.play();
+    }
+}
+function buttonAnimation(currentKey){
+    let activebtn = document.querySelector(`.${currentKey}`);
+    activebtn.classList.add("pressed");
+    setTimeout(function(){activebtn.classList.remove("pressed")}, 100);
+}
